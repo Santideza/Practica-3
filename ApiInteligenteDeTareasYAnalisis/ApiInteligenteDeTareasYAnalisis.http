@@ -1,6 +1,163 @@
-@ApiInteligenteDeTareasYAnalisis_HostAddress = http://localhost:5157
-
-GET {{ApiInteligenteDeTareasYAnalisis_HostAddress}}/weatherforecast/
-Accept: application/json
+### Variables
+@baseUrl = http://localhost:5157
+@contentType = application/json
 
 ###
+### OBTENER TODAS LAS TAREAS
+###
+GET {{baseUrl}}/api/tareas
+Accept: {{contentType}}
+
+###
+### CREAR UNA NUEVA TAREA (Pendiente)
+###
+POST {{baseUrl}}/api/tareas
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Implementar autenticación",
+  "descripcion": "Agregar JWT al proyecto",
+  "estado": "Pendiente",
+  "prioridad": "Alta",
+  "fechaVencimiento": "2026-06-15T00:00:00Z"
+}
+
+###
+### CREAR OTRA TAREA (En Proceso)
+###
+POST {{baseUrl}}/api/tareas
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Escribir documentación",
+  "descripcion": "Crear README y guía de uso",
+  "estado": "EnProceso",
+  "prioridad": "Media",
+  "fechaVencimiento": "2026-06-30T00:00:00Z"
+}
+
+###
+### CREAR TAREA CON PRIORIDAD BAJA
+###
+POST {{baseUrl}}/api/tareas
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Revisar código",
+  "descripcion": "Code review de los cambios recientes",
+  "estado": "Completada",
+  "prioridad": "Baja",
+  "fechaVencimiento": "2026-07-15T00:00:00Z"
+}
+
+###
+### OBTENER TAREA POR ID (ID=1)
+###
+GET {{baseUrl}}/api/tareas/1
+Accept: {{contentType}}
+
+###
+### OBTENER TAREA POR ID (ID=2)
+###
+GET {{baseUrl}}/api/tareas/2
+Accept: {{contentType}}
+
+###
+### OBTENER TAREA POR ID (no existe)
+###
+GET {{baseUrl}}/api/tareas/999
+Accept: {{contentType}}
+
+###
+### ACTUALIZAR TAREA (ID=1)
+###
+PUT {{baseUrl}}/api/tareas/1
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Implementar autenticación con OAuth",
+  "descripcion": "Agregar JWT y OAuth2",
+  "estado": "EnProceso",
+  "prioridad": "Alta",
+  "fechaVencimiento": "2026-06-20T00:00:00Z"
+}
+
+###
+### ACTUALIZAR TAREA (ID=2) - Cambiar estado a Completada
+###
+PUT {{baseUrl}}/api/tareas/2
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Escribir documentación",
+  "descripcion": "Documentación completada",
+  "estado": "Completada",
+  "prioridad": "Media",
+  "fechaVencimiento": "2026-06-30T00:00:00Z"
+}
+
+###
+### VALIDACIÓN: Crear tarea SIN título (Error 400)
+###
+POST {{baseUrl}}/api/tareas
+Content-Type: {{contentType}}
+
+{
+  "titulo": "",
+  "descripcion": "Tarea sin título",
+  "estado": "Pendiente",
+  "prioridad": "Alta",
+  "fechaVencimiento": "2026-06-15T00:00:00Z"
+}
+
+###
+### VALIDACIÓN: Crear tarea con prioridad inválida (Error 400)
+###
+POST {{baseUrl}}/api/tareas
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Tarea inválida",
+  "descripcion": "Con prioridad inválida",
+  "estado": "Pendiente",
+  "prioridad": "Urgente",
+  "fechaVencimiento": "2026-06-15T00:00:00Z"
+}
+
+###
+### VALIDACIÓN: Crear tarea con estado inválido (Error 400)
+###
+POST {{baseUrl}}/api/tareas
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Tarea inválida",
+  "descripcion": "Con estado inválido",
+  "estado": "Cancelada",
+  "prioridad": "Media",
+  "fechaVencimiento": "2026-06-15T00:00:00Z"
+}
+
+###
+### VALIDACIÓN: Crear tarea con fecha pasada (Error 400)
+###
+POST {{baseUrl}}/api/tareas
+Content-Type: {{contentType}}
+
+{
+  "titulo": "Tarea con fecha pasada",
+  "descripcion": "Esto debe fallar",
+  "estado": "Pendiente",
+  "prioridad": "Media",
+  "fechaVencimiento": "2020-01-01T00:00:00Z"
+}
+
+###
+### ELIMINAR TAREA (ID=3)
+###
+DELETE {{baseUrl}}/api/tareas/3
+
+###
+### ELIMINAR TAREA (no existe - Error 404)
+###
+DELETE {{baseUrl}}/api/tareas/999
