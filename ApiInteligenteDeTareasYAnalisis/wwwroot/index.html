@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>API Inteligente de Tareas y Analisis</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Panel de estado</p>
+        <h1>API Inteligente de Tareas y Analisis</h1>
+        <p class="summary">Tu servicio esta activo. Desde aqui puedes comprobar endpoints, ver respuestas y abrir la definicion OpenAPI.</p>
+      </div>
+      <div class="status-card" aria-live="polite">
+        <span class="status-dot"></span>
+        <div>
+          <strong id="api-status">Comprobando API...</strong>
+          <span id="api-detail">Consultando /weatherforecast</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Herramientas de la API">
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Endpoint</p>
+            <h2>/weatherforecast</h2>
+          </div>
+          <button id="refresh" type="button">Actualizar</button>
+        </div>
+        <pre id="forecast-output">Cargando datos...</pre>
+      </article>
+
+      <article class="panel compact">
+        <p class="eyebrow">Accesos</p>
+        <a class="link-row" href="/weatherforecast">Ver JSON del clima</a>
+        <a class="link-row" href="/openapi/v1.json">Ver OpenAPI</a>
+        <div class="note">
+          Si esta pagina carga pero un enlace no responde, revisa que el proyecto este corriendo en ambiente Development.
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>
